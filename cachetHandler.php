@@ -20,10 +20,16 @@ class CachetHandler
 
 	}
 
-	public function addMetric( $id = 1, $value = 1, $timestamp = null ) {
+	public function getMetricPoints( $id = 1 ) {
+
+		return $this->curl->get(  $this->base_url . '/api/v1/metrics/' . $id . '/points' );
+
+	}
+
+	public function addMetricPoint( $id = 1, $value = 1, $timestamp = null ) {
 
 		$timestamp = $timestamp ? $timestamp : time();
-		$this->curl->post(  $this->base_url . '/api/v1/metrics/' . $id . '/points' , [
+		return $this->curl->post(  $this->base_url . '/api/v1/metrics/' . $id . '/points' , [
 			'value'     => $value,
 			'timestamp' => $timestamp,
 		]);
